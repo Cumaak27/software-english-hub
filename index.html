@@ -1521,15 +1521,6 @@
                             outputAudioTranscription: {}
                         }
                     }));
-                    console.log("Gemini mesajı:", message);
-
-if (message.setupComplete) {
-  console.log("SETUP TAMAMLANDI");
-}
-
-if (message.error) {
-  console.error("GEMINI API HATASI:", message.error);
-}
 
                     setVoiceStatus('Gemini bağlantısı kuruluyor...');
                 };
@@ -1587,6 +1578,15 @@ if (message.error) {
                     }
                     if (message.error) throw new Error(message.error.message || 'Gemini Live bağlantı hatası.');
                 };
+                console.log("Gemini mesajı:", message);
+
+if (message.setupComplete) {
+  console.log("SETUP TAMAMLANDI");
+}
+
+if (message.error) {
+  console.error("GEMINI API HATASI:", message.error);
+}
 
                 liveSocket.onerror = () => setVoiceStatus('Ses bağlantısında hata oluştu. API anahtarını ve Vercel dağıtımını kontrol et.');
                 liveSocket.onclose = (event) => {
