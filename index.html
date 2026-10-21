@@ -1412,7 +1412,9 @@
                     throw new Error(tokenData.error || 'Gemini oturum jetonu alınamadı.');
                 }
 
-                const endpoint = 'wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContentConstrained?access_token=' + encodeURIComponent(tokenData.token);
+                const endpoint =
+  'wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContentConstrained?access_token=' +
+  encodeURIComponent(tokenData.token);
                 liveSocket = new WebSocket(endpoint);
 
                 liveSocket.onopen = () => {
@@ -1485,10 +1487,19 @@
                 };
 
                 liveSocket.onerror = () => setVoiceStatus('Ses bağlantısında hata oluştu. API anahtarını ve Vercel dağıtımını kontrol et.');
-                liveSocket.onclose = () => {
-                    if (liveSocket) setVoiceStatus('Bağlantı kapandı. Yeniden başlatabilirsin.');
-                    stopVoiceChat(false);
-                };
+                liveSocket.onclose = (event) => {
+    console.error("WebSocket kapandı:", {
+        code: event.code,
+        reason: event.reason,
+        wasClean: event.wasClean
+    });
+
+    setVoiceStatus(
+        `Bağlantı kapandı. Kod: ${event.code}. Sebep: ${event.reason || "Belirtilmedi"}`
+    );
+
+    stopVoiceChat(false);
+};
             } catch (error) {
                 console.error('Gemini Live error:', error);
                 setVoiceStatus(error.message || 'Sesli sohbet başlatılamadı.');
