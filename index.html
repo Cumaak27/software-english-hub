@@ -712,8 +712,8 @@
     </main>
 
     <script>
-        // --- GLOBAL CANLI CANLI MODEL TANIMI ---
-        const LIVE_MODEL = 'models/gemini-2.0-flash-exp';
+        // --- GLOBAL CANLI MODEL TANIMI (Ön ek olmadan Bidi-WebSocket uyumlu) ---
+        const LIVE_MODEL = 'gemini-2.0-flash-exp';
 
         // Yazılım Mühendisliği & Genel Kelimeler (Tam 300 Kelime)
         const softwareWords = [
@@ -855,7 +855,7 @@
             { english: ["We", "configured", "the", "environment", "variables"], turkish: "Ortam değişkenlerini yapılandırdık." },
             { english: ["Open", "source", "software", "encourages", "collaboration"], turkish: "Açık kaynaklı yazılım işbirliğini teşvik eder." },
             { english: ["The", "event", "loop", "handles", "async", "callbacks"], turkish: "Olay döngüsü eşzamansız geri çağırmaları yönetir." },
-            { english: ["We", "refactored", "the", "legacy", "codebase"], turkish: "Eski kod tabanını yeniden yapılandırdık." },
+            { english: ["We", "refactored", "the", "legacy", "codebase"], turkish: "Eski kod tabanını yeniden yapılandıracağız." },
             { english: ["Agile", "methodology", "promotes", "iterative", "development"], turkish: "Agile metodolojisi yinelemeli geliştirmeyi teşvik eder." },
             { english: ["Scrum", "teams", "hold", "daily", "standup", "meetings"], turkish: "Scrum ekipleri günlük ayaküstü toplantılar yapar." },
             { english: ["Unit", "testing", "ensures", "code", "quality"], turkish: "Birim testi kod kalitesini sağlar." },
@@ -1505,10 +1505,9 @@
                 await liveAudioContext.resume();
 
                 setVoiceStatus('Güvenli oturum hazırlanıyor...');
-                
-                // Tam URL Adresle Getir (file:// Hatalarına Karşı)
-                const tokenApiUrl = window.location.origin.startsWith('http') 
-                    ? window.location.origin + '/api/live-token' 
+
+                const tokenApiUrl = window.location.origin.startsWith('http')
+                    ? window.location.origin + '/api/live-token'
                     : '/api/live-token';
 
                 const tokenResponse = await fetch(tokenApiUrl, { method: 'POST' });
@@ -1517,28 +1516,25 @@
                     throw new Error(tokenData.error || 'Gemini oturum jetonu alınamadı.');
                 }
 
+                // Normal API Key ile Uyumlu Endpoint (key=)
                 const endpoint =
-                    'wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContentConstrained?access_token=' +
+                    'wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=' +
                     encodeURIComponent(tokenData.token);
+
                 liveSocket = new WebSocket(endpoint);
 
                 liveSocket.onopen = () => {
                     liveSocket.send(JSON.stringify({
                         setup: {
                             model: LIVE_MODEL,
-
                             generationConfig: {
                                 responseModalities: ['AUDIO']
                             },
-
                             systemInstruction: {
                                 parts: [{
                                     text: 'Sen Software & English Hub sitesinin sıcak, sabırlı ve teşvik edici İngilizce ve yazılım öğretmenisin. Kullanıcıyla doğal Türkçe konuş; İngilizce öğrenme pratiği isterse basit İngilizce kullan ve gerektiğinde Türkçe açıkla. Kısa, anlaşılır yanıtlar ver.'
                                 }]
-                            },
-
-                            inputAudioTranscription: {},
-                            outputAudioTranscription: {}
+                            }
                         }
                     }));
 
@@ -1547,8 +1543,8 @@
 
                 liveSocket.onmessage = async (event) => {
                     let message;
-                    try { 
-                        message = JSON.parse(event.data); 
+                    try {
+                        message = JSON.parse(event.data);
                         console.log("Gemini mesajı:", message);
                     } catch (_) { return; }
 
@@ -1568,7 +1564,10 @@
                             const pcmBytes = floatToPcm16(resampled);
                             liveSocket.send(JSON.stringify({
                                 realtimeInput: {
-                                    audio: { mimeType: 'audio/pcm;rate=16000', data: bytesToBase64(pcmBytes) }
+                                    mediaChunks: [{
+                                        mimeType: 'audio/pcm;rate=16000',
+                                        data: bytesToBase64(pcmBytes)
+                                    }]
                                 }
                             }));
                         };
@@ -1580,19 +1579,15 @@
                     }
                     if (message.serverContent) {
                         const content = message.serverContent;
-                        if (content.inputTranscription && content.inputTranscription.text) {
-                            setVoiceStatus('Seni dinliyorum...');
-                        }
-                        if (content.outputTranscription && content.outputTranscription.text) {
-                            const text = content.outputTranscription.text.trim();
-                            if (text) appendChatMessage(text, 'ai');
-                        }
-                        const parts = content.modelTurn && content.modelTurn.parts ? content.modelTurn.parts : [];
-                        for (const part of parts) {
-                            if (part.inlineData && part.inlineData.data && (part.inlineData.mimeType || '').startsWith('audio/pcm')) {
-                                playGeminiAudio(part.inlineData.data);
+                        if (content.modelTurn && content.modelTurn.parts) {
+                            for (const part of content.modelTurn.parts) {
+                                if (part.inlineData && part.inlineData.data && (part.inlineData.mimeType || '').startsWith('audio/pcm')) {
+                                    playGeminiAudio(part.inlineData.data);
+                                }
+                                if (part.text) {
+                                    appendChatMessage(part.text, 'ai');
+                                }
                             }
-                            if (part.text && !(content.outputTranscription && content.outputTranscription.text)) appendChatMessage(part.text, 'ai');
                         }
                         if (content.turnComplete) setVoiceStatus('Dinliyorum... Devam edebilirsin.');
                         if (content.interrupted) {
