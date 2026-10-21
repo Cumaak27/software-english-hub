@@ -1417,20 +1417,28 @@
   encodeURIComponent(tokenData.token);
                 liveSocket = new WebSocket(endpoint);
 
-                liveSocket.onopen = () => {
-                    liveSocket.send(JSON.stringify({
-                        setup: {
-                            model: LIVE_MODEL,
-                            responseModalities: ['AUDIO'],
-                            systemInstruction: {
-                                parts: [{ text: 'Sen Software & English Hub sitesinin sıcak, sabırlı ve teşvik edici İngilizce ve yazılım öğretmenisin. Kullanıcıyla doğal Türkçe konuş; İngilizce öğrenme pratiği isterse basit İngilizce kullan ve gerektiğinde Türkçe açıkla. Kısa, anlaşılır yanıtlar ver. Kullanıcı konuşmasını bitirince yanıt ver.' }]
-                            },
-                            inputAudioTranscription: {},
-                            outputAudioTranscription: {}
-                        }
-                    }));
-                    setVoiceStatus('Gemini bağlantısı kuruluyor...');
-                };
+              liveSocket.onopen = () => {
+  liveSocket.send(JSON.stringify({
+    setup: {
+      model: LIVE_MODEL,
+
+      generationConfig: {
+        responseModalities: ['AUDIO']
+      },
+
+      systemInstruction: {
+        parts: [{
+          text: 'Sen Software & English Hub sitesinin sıcak, sabırlı ve teşvik edici İngilizce ve yazılım öğretmenisin. Kullanıcıyla doğal Türkçe konuş; İngilizce öğrenme pratiği isterse basit İngilizce kullan ve gerektiğinde Türkçe açıkla. Kısa, anlaşılır yanıtlar ver. Kullanıcı konuşmasını bitirince yanıt ver.'
+        }]
+      },
+
+      inputAudioTranscription: {},
+      outputAudioTranscription: {}
+    }
+  }));
+
+  setVoiceStatus('Gemini bağlantısı kuruluyor...');
+};
 
                 liveSocket.onmessage = async (event) => {
                     let message;
