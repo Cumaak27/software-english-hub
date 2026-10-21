@@ -2,40 +2,33 @@
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
-    return res.status(405).json({
-      error: "Method not allowed"
-    });
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
     return res.status(500).json({
-      error: "GEMINI_API_KEY Vercel ortam değişkenlerinde bulunamadı."
+      error: "GEMINI_API_KEY ayarlanmamış."
     });
   }
-
-  const now = Date.now();
 
   const payload = {
     uses: 1,
     expireTime: new Date(
-      now + 30 * 60 * 1000
+      Date.now() + 30 * 60 * 1000
     ).toISOString(),
     newSessionExpireTime: new Date(
-      now + 60 * 1000
+      Date.now() + 60 * 1000
     ).toISOString(),
     liveConnectConstraints: {
       model: "models/gemini-3.1-flash-live-preview",
       config: {
         responseModalities: ["AUDIO"],
-        sessionResumption: {},
         systemInstruction: {
-          parts: [
-            {
-              text: "You are a friendly English and software teacher. Speak Turkish when explaining concepts and help the user practice English. Respond naturally in real-time voice conversations."
-            }
-          ]
+          parts: [{
+            text: "You are a friendly English and software teacher. Explain in Turkish when helpful and help the user practice English."
+          }]
         }
       }
     }
@@ -57,12 +50,9 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("Gemini token error:", data);
-
+      console.error("Gemini API error:", data);
       return res.status(response.status).json({
-        error:
-          data.error?.message ||
-          "Gemini geçici jetonu oluşturulamadı."
+        error: data.error?.message || "Jeton oluşturulamadı."
       });
     }
 
@@ -75,12 +65,10 @@ export default async function handler(req, res) {
     return res.status(200).json({
       token: data.name
     });
-
   } catch (error) {
-    console.error("Gemini token request failed:", error);
-
+    console.error("Token request failed:", error);
     return res.status(500).json({
-      error: "Gemini sunucusuna bağlanılamadı."
+      error: "Gemini API bağlantısı başarısız."
     });
   }
 }
