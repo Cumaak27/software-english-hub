@@ -712,6 +712,9 @@
     </main>
 
     <script>
+        // --- GLOBAL CANLI CANLI MODEL TANIMI ---
+        const LIVE_MODEL = 'models/gemini-2.0-flash-exp';
+
         // Yazılım Mühendisliği & Genel Kelimeler (Tam 300 Kelime)
         const softwareWords = [
             { word: "Algorithm", phonetic: "/ˈæl.ɡə.rɪ.ðəm/", meaning: "Algoritma", example: "We optimized the sorting algorithm.", level: "CS" },
@@ -1403,7 +1406,7 @@
             loadingBubble.textContent = 'Düşünüyorum...';
             document.getElementById('chat-messages').appendChild(loadingBubble);
 
-            const reply = await fetchAIResponse(userMsg, "Sen Software & English Hub sitesinin öğretmenisiniz.");
+            const reply = await fetchAIResponse(userMsg, "Sen Software & English Hub öğretmenisin. Kullanıcı sorularına samimi, açıklayıcı ve kısa yanıtlar ver.");
             loadingBubble.textContent = reply;
         }
 
@@ -1421,7 +1424,6 @@
         let liveProcessor = null;
         let liveIsReady = false;
         let playbackNextTime = 0;
-        const LIVE_MODEL = 'models/gemini-3.1-flash-live-preview';
 
         function setVoiceStatus(message) {
             const el = document.getElementById('voice-status');
@@ -1503,7 +1505,13 @@
                 await liveAudioContext.resume();
 
                 setVoiceStatus('Güvenli oturum hazırlanıyor...');
-                const tokenResponse = await fetch('/api/live-token', { method: 'POST' });
+                
+                // Tam URL Adresle Getir (file:// Hatalarına Karşı)
+                const tokenApiUrl = window.location.origin.startsWith('http') 
+                    ? window.location.origin + '/api/live-token' 
+                    : '/api/live-token';
+
+                const tokenResponse = await fetch(tokenApiUrl, { method: 'POST' });
                 const tokenData = await tokenResponse.json();
                 if (!tokenResponse.ok || !tokenData.token) {
                     throw new Error(tokenData.error || 'Gemini oturum jetonu alınamadı.');
@@ -1525,7 +1533,7 @@
 
                             systemInstruction: {
                                 parts: [{
-                                    text: 'Sen Software & English Hub sitesinin sıcak, sabırlı ve teşvik edici İngilizce ve yazılım öğretmenisin. Kullanıcıyla doğal Türkçe konuş; İngilizce öğrenme pratiği isterse basit İngilizce kullan ve gerektiğinde Türkçe açıkla. Kısa, anlaşılır yanıtlar ver. Kullanıcı konuşmasını bitirince yanıt ver.'
+                                    text: 'Sen Software & English Hub sitesinin sıcak, sabırlı ve teşvik edici İngilizce ve yazılım öğretmenisin. Kullanıcıyla doğal Türkçe konuş; İngilizce öğrenme pratiği isterse basit İngilizce kullan ve gerektiğinde Türkçe açıkla. Kısa, anlaşılır yanıtlar ver.'
                                 }]
                             },
 
@@ -1539,9 +1547,10 @@
 
                 liveSocket.onmessage = async (event) => {
                     let message;
-                    try { message = JSON.parse(event.data); } catch (_) { return; }
-                    
-                    console.log("Gemini mesajı:", message);
+                    try { 
+                        message = JSON.parse(event.data); 
+                        console.log("Gemini mesajı:", message);
+                    } catch (_) { return; }
 
                     if (message.setupComplete) {
                         console.log("SETUP TAMAMLANDI");
@@ -1593,11 +1602,11 @@
                     }
                     if (message.error) {
                         console.error("GEMINI API HATASI:", message.error);
-                        throw new Error(message.error.message || 'Gemini Live bağlantı hatası.');
+                        stopVoiceChat(false);
                     }
                 };
 
-                liveSocket.onerror = () => setVoiceStatus('Ses bağlantısında hata oluştu. API anahtarını ve Vercel dağıtımını kontrol et.');
+                liveSocket.onerror = () => setVoiceStatus('Ses bağlantısında hata oluştu. Vercel ortam değişkenlerini kontrol et.');
                 liveSocket.onclose = (event) => {
                     console.error("WebSocket kapandı:", {
                         code: event.code,
