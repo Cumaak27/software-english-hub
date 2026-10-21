@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,7 +38,7 @@
             color: white;
             padding: 1.5rem 2rem;
             text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
         header h1 {
@@ -64,7 +65,8 @@
             transition: all 0.3s;
         }
 
-        .nav-btn:hover, .nav-btn.active {
+        .nav-btn:hover,
+        .nav-btn.active {
             background: white;
             color: var(--primary);
         }
@@ -86,8 +88,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .step-banner {
@@ -178,7 +187,8 @@
             flex-wrap: wrap;
         }
 
-        .search-input, .select-input {
+        .search-input,
+        .select-input {
             padding: 0.6rem 1rem;
             border: 1px solid #cbd5e1;
             border-radius: 10px;
@@ -186,7 +196,10 @@
             outline: none;
         }
 
-        .search-input { flex: 1; min-width: 180px; }
+        .search-input {
+            flex: 1;
+            min-width: 180px;
+        }
 
         .card-container {
             perspective: 1000px;
@@ -209,7 +222,8 @@
             transform: rotateY(180deg);
         }
 
-        .card-front, .card-back {
+        .card-front,
+        .card-back {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -293,14 +307,29 @@
             background: var(--primary-hover);
         }
 
-        .btn-secondary { background: #64748b; }
-        .btn-secondary:hover { background: #475569; }
+        .btn-secondary {
+            background: #64748b;
+        }
 
-        .btn-accent { background: #f59e0b; }
-        .btn-accent:hover { background: #d97706; }
+        .btn-secondary:hover {
+            background: #475569;
+        }
 
-        .btn-ai { background: #8b5cf6; }
-        .btn-ai:hover { background: #7c3aed; }
+        .btn-accent {
+            background: #f59e0b;
+        }
+
+        .btn-accent:hover {
+            background: #d97706;
+        }
+
+        .btn-ai {
+            background: #8b5cf6;
+        }
+
+        .btn-ai:hover {
+            background: #7c3aed;
+        }
 
         .quiz-card {
             background: var(--card-bg);
@@ -317,7 +346,9 @@
         }
 
         @media(max-width: 500px) {
-            .options-grid { grid-template-columns: 1fr; }
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .option-btn {
@@ -348,7 +379,8 @@
             color: #991b1b;
         }
 
-        .word-pool, .sentence-zone {
+        .word-pool,
+        .sentence-zone {
             min-height: 70px;
             background: var(--bg);
             border: 2px dashed #cbd5e1;
@@ -368,7 +400,7 @@
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             user-select: none;
         }
 
@@ -463,24 +495,58 @@
             background: var(--card-bg);
             border-top: 1px solid #e2e8f0;
         }
-        .voice-status { font-size: .88rem; color: var(--text); flex: 1 1 180px; }
-        .voice-start, .voice-stop {
-            border: 0; border-radius: 10px; padding: .7rem 1rem; cursor: pointer;
-            font-weight: 600; display: inline-flex; align-items: center; gap: .45rem;
+
+        .voice-status {
+            font-size: .88rem;
+            color: var(--text);
+            flex: 1 1 180px;
         }
-        .voice-start { background: #0f766e; color: #fff; }
-        .voice-stop { background: #b91c1c; color: #fff; }
-        .voice-start:disabled, .voice-stop:disabled { opacity: .5; cursor: not-allowed; }
-        .voice-hint { padding: 0 1rem .75rem; font-size: .8rem; color: var(--text); opacity: .8; }
+
+        .voice-start,
+        .voice-stop {
+            border: 0;
+            border-radius: 10px;
+            padding: .7rem 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+        }
+
+        .voice-start {
+            background: #0f766e;
+            color: #fff;
+        }
+
+        .voice-stop {
+            background: #b91c1c;
+            color: #fff;
+        }
+
+        .voice-start:disabled,
+        .voice-stop:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        .voice-hint {
+            padding: 0 1rem .75rem;
+            font-size: .8rem;
+            color: var(--text);
+            opacity: .8;
+        }
     </style>
 </head>
+
 <body>
 
     <header>
         <h1><i class="fa-solid fa-code"></i> Software & English Hub</h1>
         <p>Yazılım Terimleri, 150 Cümlelik Havuz & Kümülatif Tekrarlı Ödev Sistemi</p>
         <nav>
-            <button class="nav-btn active" onclick="switchTab('homework')"><i class="fa-solid fa-calendar-check"></i> 15 Günlük Ödev</button>
+            <button class="nav-btn active" onclick="switchTab('homework')"><i class="fa-solid fa-calendar-check"></i> 15
+                Günlük Ödev</button>
             <button class="nav-btn" onclick="switchTab('cards')">Kelime Kartları</button>
             <button class="nav-btn" onclick="switchTab('quiz')">Test (Quiz)</button>
             <button class="nav-btn" onclick="switchTab('builder')">Cümle Kurma</button>
@@ -493,14 +559,15 @@
         <div id="homework" class="section active">
             <div class="homework-card">
                 <h2><i class="fa-solid fa-list-check"></i> Program İlerlemesi</h2>
-                <p style="color:var(--text-light); margin-top:0.3rem;">Her gün yeni kelimeler öğren, eski kelimeleri VE cümleleri tekrar et!</p>
+                <p style="color:var(--text-light); margin-top:0.3rem;">Her gün yeni kelimeler öğren, eski kelimeleri VE
+                    cümleleri tekrar et!</p>
                 <div class="days-grid" id="days-grid"></div>
             </div>
 
             <div class="homework-card" id="day-detail-card">
                 <h3 id="current-day-title">Gün Seçin</h3>
                 <p id="current-day-desc" style="color:var(--text-light); margin-bottom:1rem;"></p>
-                
+
                 <ul class="task-list">
                     <li class="task-item">
                         <i class="fa-solid fa-1"></i> <span id="task-words-text">Günün Yeni Kelimeleri</span>
@@ -509,11 +576,13 @@
                         <i class="fa-solid fa-2"></i> <span id="task-review-text">Eski Kelimelerin Karma Tekrarı</span>
                     </li>
                     <li class="task-item">
-                        <i class="fa-solid fa-3"></i> <span id="task-sentence-text">Cümle Pratiği (Eski Tekrar + Günün Cümleleri)</span>
+                        <i class="fa-solid fa-3"></i> <span id="task-sentence-text">Cümle Pratiği (Eski Tekrar + Günün
+                            Cümleleri)</span>
                     </li>
                 </ul>
 
-                <button class="btn" onclick="startDayHomework()" style="width: 100%; margin-top:0.5rem;"><i class="fa-solid fa-play"></i> Günün Akışını Başlat</button>
+                <button class="btn" onclick="startDayHomework()" style="width: 100%; margin-top:0.5rem;"><i
+                        class="fa-solid fa-play"></i> Günün Akışını Başlat</button>
             </div>
         </div>
 
@@ -525,7 +594,8 @@
             </div>
 
             <div class="filter-bar" id="cards-filter-bar">
-                <input type="text" id="search-box" class="search-input" placeholder="Kelime veya terim ara..." oninput="filterWords()">
+                <input type="text" id="search-box" class="search-input" placeholder="Kelime veya terim ara..."
+                    oninput="filterWords()">
                 <select id="level-filter" class="select-input" onchange="filterWords()">
                     <option value="all">Tüm Kategoriler</option>
                     <option value="A1">Genel (A1-A2)</option>
@@ -539,13 +609,16 @@
                     <div class="card-front">
                         <div class="word" id="card-word">...</div>
                         <div class="phonetic" id="card-phonetic">...</div>
-                        <button class="audio-btn" onclick="speakCurrentWord(event)"><i class="fa-solid fa-volume-high"></i></button>
-                        <p style="margin-top:20px; font-size:0.85rem; color:#94a3b8;">Anlamını görmek için karta tıkla</p>
+                        <button class="audio-btn" onclick="speakCurrentWord(event)"><i
+                                class="fa-solid fa-volume-high"></i></button>
+                        <p style="margin-top:20px; font-size:0.85rem; color:#94a3b8;">Anlamını görmek için karta tıkla
+                        </p>
                     </div>
                     <div class="card-back">
                         <div class="meaning" id="card-meaning">...</div>
                         <div class="example" id="card-example">...</div>
-                        <button class="btn btn-ai" style="margin-top:10px; font-size:0.8rem;" onclick="askAIAboutCurrentWord(event)">
+                        <button class="btn btn-ai" style="margin-top:10px; font-size:0.8rem;"
+                            onclick="askAIAboutCurrentWord(event)">
                             <i class="fa-solid fa-wand-magic-sparkles"></i> AI ile Detaylandır
                         </button>
                     </div>
@@ -554,7 +627,8 @@
             <div class="controls">
                 <button class="btn" onclick="prevCard()"><i class="fa-solid fa-arrow-left"></i> Önceki</button>
                 <span id="card-indicator" style="font-weight:600; color:var(--text-light);">1 / 300</span>
-                <button class="btn" onclick="nextCard()" id="next-card-btn">Sonraki <i class="fa-solid fa-arrow-right"></i></button>
+                <button class="btn" onclick="nextCard()" id="next-card-btn">Sonraki <i
+                        class="fa-solid fa-arrow-right"></i></button>
             </div>
         </div>
 
@@ -565,7 +639,8 @@
                 <h2 id="quiz-question" style="text-align: center; margin-bottom: 1rem;">...</h2>
                 <div class="options-grid" id="quiz-options"></div>
                 <div style="text-align: right; margin-top: 1.5rem;">
-                    <button class="btn" onclick="nextQuizQuestion()" id="next-quiz-btn" style="display:none;">Sonraki Soru</button>
+                    <button class="btn" onclick="nextQuizQuestion()" id="next-quiz-btn" style="display:none;">Sonraki
+                        Soru</button>
                 </div>
             </div>
         </div>
@@ -580,19 +655,22 @@
             <div class="quiz-card">
                 <h3 style="margin-bottom:0.5rem;">Kelime Sıralama</h3>
                 <p style="color:var(--text-light); margin-bottom:1.5rem;" id="builder-meaning">...</p>
-                
+
                 <div class="sentence-zone" id="sentence-zone"></div>
                 <div class="word-pool" id="word-pool"></div>
 
-                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+                <div
+                    style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
                     <div>
                         <button class="btn btn-secondary" onclick="resetSentence()">Temizle</button>
                         <button class="btn btn-accent" onclick="showAnswer()">💡 Cevabı Göster</button>
-                        <button class="btn btn-ai" onclick="explainSentenceWithAI()"><i class="fa-solid fa-brain"></i> AI Gramer Analizi</button>
+                        <button class="btn btn-ai" onclick="explainSentenceWithAI()"><i class="fa-solid fa-brain"></i>
+                            AI Gramer Analizi</button>
                     </div>
                     <div>
                         <button class="btn" onclick="checkSentence()">Kontrol Et</button>
-                        <button class="btn" onclick="nextSentence()" id="next-sentence-btn" style="background:#10b981;">Sonraki Cümle <i class="fa-solid fa-arrow-right"></i></button>
+                        <button class="btn" onclick="nextSentence()" id="next-sentence-btn"
+                            style="background:#10b981;">Sonraki Cümle <i class="fa-solid fa-arrow-right"></i></button>
                     </div>
                 </div>
 
@@ -609,18 +687,25 @@
             <div class="chat-container">
                 <div class="chat-messages" id="chat-messages">
                     <div class="chat-bubble ai">
-                        Merhaba RAFIKK! Ben senin yapay zeka öğrenim asistanınım. Yazılım terimleri, İngilizce dil bilgisi veya kodlama konseptleri hakkında bana her şeyi sorabilirsin! 🚀
+                        Merhaba RAFIKK! Ben senin yapay zeka öğrenim asistanınım. Yazılım terimleri, İngilizce dil
+                        bilgisi veya kodlama konseptleri hakkında bana her şeyi sorabilirsin! 🚀
                     </div>
                 </div>
                 <div class="voice-controls">
-                    <button type="button" id="voice-start" class="voice-start" onclick="startVoiceChat()"><i class="fa-solid fa-microphone"></i> Sesli Sohbeti Başlat</button>
-                    <button type="button" id="voice-stop" class="voice-stop" onclick="stopVoiceChat()" disabled><i class="fa-solid fa-phone-slash"></i> Görüşmeyi Bitir</button>
-                    <span id="voice-status" class="voice-status" role="status" aria-live="polite">Sesli sohbet hazır.</span>
+                    <button type="button" id="voice-start" class="voice-start" onclick="startVoiceChat()"><i
+                            class="fa-solid fa-microphone"></i> Sesli Sohbeti Başlat</button>
+                    <button type="button" id="voice-stop" class="voice-stop" onclick="stopVoiceChat()" disabled><i
+                            class="fa-solid fa-phone-slash"></i> Görüşmeyi Bitir</button>
+                    <span id="voice-status" class="voice-status" role="status" aria-live="polite">Sesli sohbet
+                        hazır.</span>
                 </div>
-                <div class="voice-hint">Sesli sohbet için mikrofon izni gerekir. En iyi sonuç için siteyi HTTPS üzerinden aç.</div>
+                <div class="voice-hint">Sesli sohbet için mikrofon izni gerekir. En iyi sonuç için siteyi HTTPS
+                    üzerinden aç.</div>
                 <div class="chat-input-area">
-                    <input type="text" id="chat-input" placeholder="Bir soru sor veya yardım iste..." onkeypress="handleChatKeyPress(event)">
-                    <button class="btn btn-ai" onclick="sendChatMessage()"><i class="fa-solid fa-paper-plane"></i> Send</button>
+                    <input type="text" id="chat-input" placeholder="Bir soru sor veya yardım iste..."
+                        onkeypress="handleChatKeyPress(event)">
+                    <button class="btn btn-ai" onclick="sendChatMessage()"><i class="fa-solid fa-paper-plane"></i>
+                        Send</button>
                 </div>
             </div>
         </div>
@@ -681,18 +766,18 @@
 
         const allWords = [...softwareWords, ...generalWords];
         const extraTerms = [
-            "Array","Object","Class","Method","Loop","Condition","Exception","Thread","Process","Server",
-            "Client","Protocol","Packet","Network","Security","Encryption","Decryption","Token","Session","Cookie",
-            "Route","Endpoint","Request","Response","Status","Header","Payload","Schema","Index","Pointer",
-            "Memory","Stack","Queue","Tree","Graph","Node","Edge","Heap","Hashing","Binary",
-            "Boolean","Integer","String","Float","Double","Char","Null","Undefined","Scope","Closure",
-            "Promise","Async","Await","Event","Listener","Stream","Buffer","Module","Package","Library",
-            "Version","Commit","Branch","Merge","Pull","Push","Clone","Fork","Stash","Rebase",
-            "Build","Pipeline","Container","Docker","Kubernetes","Cluster","Cloud","Hosting","Domain","DNS",
-            "SaaS","API","SDK","IDE","Terminal","CLI","Script","Syntax","Semantics","Grammar",
-            "Pattern","Design","Singleton","Factory","Observer","State","Strategy","Proxy","Adapter","Bridge",
-            "Testing","Mocking","Unit","Integration","System","Benchmark","Latency","Throughput","Bandwidth","Cache",
-            "Storage","Disk","CPU","GPU","RAM","Hardware","Software","Firmware","OS","Kernel"
+            "Array", "Object", "Class", "Method", "Loop", "Condition", "Exception", "Thread", "Process", "Server",
+            "Client", "Protocol", "Packet", "Network", "Security", "Encryption", "Decryption", "Token", "Session", "Cookie",
+            "Route", "Endpoint", "Request", "Response", "Status", "Header", "Payload", "Schema", "Index", "Pointer",
+            "Memory", "Stack", "Queue", "Tree", "Graph", "Node", "Edge", "Heap", "Hashing", "Binary",
+            "Boolean", "Integer", "String", "Float", "Double", "Char", "Null", "Undefined", "Scope", "Closure",
+            "Promise", "Async", "Await", "Event", "Listener", "Stream", "Buffer", "Module", "Package", "Library",
+            "Version", "Commit", "Branch", "Merge", "Pull", "Push", "Clone", "Fork", "Stash", "Rebase",
+            "Build", "Pipeline", "Container", "Docker", "Kubernetes", "Cluster", "Cloud", "Hosting", "Domain", "DNS",
+            "SaaS", "API", "SDK", "IDE", "Terminal", "CLI", "Script", "Syntax", "Semantics", "Grammar",
+            "Pattern", "Design", "Singleton", "Factory", "Observer", "State", "Strategy", "Proxy", "Adapter", "Bridge",
+            "Testing", "Mocking", "Unit", "Integration", "System", "Benchmark", "Latency", "Throughput", "Bandwidth", "Cache",
+            "Storage", "Disk", "CPU", "GPU", "RAM", "Hardware", "Software", "Firmware", "OS", "Kernel"
         ];
 
         extraTerms.forEach((t) => {
@@ -868,10 +953,10 @@
         // --- AKIŞLI ÖDEV SİSTEMİ MANTIĞI ---
         let selectedDay = parseInt(localStorage.getItem('RAFIK_current_day')) || 1;
         let completedDays = JSON.parse(localStorage.getItem('RAFIKK_completed_days')) || [];
-        
+
         let isHomeworkMode = false;
         let homeworkStep = 1;
-        
+
         let activeSentenceList = [];
         let currentSentenceSubIndex = 0;
         let totalSentencesInStep = 10;
@@ -912,10 +997,10 @@
 
             document.getElementById('current-day-title').textContent = `${selectedDay}. Gün Akışı`;
             document.getElementById('current-day-desc').textContent = `Ödevi Başlat butonuna bastığında sırasıyla: 20 Yeni Kelime -> Karma Kelime Tekrarı -> Karma Cümle Tekrarı + 10 Yeni Cümle gelecektir.`;
-            
+
             document.getElementById('task-words-text').textContent = `1. Adım: Günün Kelime ve Terimleri (${todayCount} Kart)`;
-            document.getElementById('task-review-text').textContent = selectedDay === 1 ? 
-                `2. Adım: İlk gün (Eski tekrar yok)` : 
+            document.getElementById('task-review-text').textContent = selectedDay === 1 ?
+                `2. Adım: İlk gün (Eski tekrar yok)` :
                 `2. Adım: Karma Unutma Önleme Kelime Seti`;
             document.getElementById('task-sentence-text').textContent = selectedDay === 1 ?
                 `3. Adım: Cümle Kurma Pratiği (10 Yeni Cümle)` :
@@ -925,11 +1010,11 @@
         function startDayHomework() {
             isHomeworkMode = true;
             homeworkStep = 1;
-            
+
             const wordsPerDay = 20;
             const startIdx = (selectedDay - 1) * wordsPerDay;
             const endIdx = Math.min(startIdx + wordsPerDay, allWords.length);
-            
+
             activeWordsList = allWords.slice(startIdx, endIdx);
             currentCardIndex = 0;
 
@@ -952,7 +1037,7 @@
                     const previousWords = allWords.slice(0, startIdx);
                     const reviewCount = Math.min(12, previousWords.length);
                     activeWordsList = [...previousWords].sort(() => Math.random() - 0.5).slice(0, reviewCount);
-                    
+
                     currentCardIndex = 0;
                     document.getElementById('banner-text').textContent = `Eski Kelimelerden Unutma Önleme Seti`;
                     document.getElementById('banner-step-count').textContent = `Aşama 2 / 3`;
@@ -967,14 +1052,14 @@
 
         function startHomeworkSentenceStep() {
             homeworkStep = 3;
-            
+
             const sentenceStart = (selectedDay - 1) * 10;
             const newTodaySentences = sentences.slice(sentenceStart, sentenceStart + 10);
 
             if (selectedDay > 1) {
                 const prevSentences = sentences.slice(0, sentenceStart);
                 const reviewSentences = [...prevSentences].sort(() => Math.random() - 0.5).slice(0, 3);
-                
+
                 activeSentenceList = reviewSentences;
                 isSentenceReviewPhase = true;
                 totalSentencesInStep = reviewSentences.length;
@@ -993,7 +1078,7 @@
             document.getElementById('homework-card-banner').style.display = 'none';
             document.getElementById('homework-builder-banner').style.display = 'flex';
             document.getElementById('sentence-step-indicator').textContent = `1 / ${totalSentencesInStep}`;
-            
+
             switchTab('builder');
             loadSentenceBuilderForHomework();
         }
@@ -1003,7 +1088,7 @@
             document.getElementById('builder-meaning').textContent = `Türkçesi: "${s.turkish}"`;
             document.getElementById('builder-feedback').textContent = '';
             document.getElementById('answer-box').style.display = 'none';
-            
+
             const pool = document.getElementById('word-pool');
             const zone = document.getElementById('sentence-zone');
             pool.innerHTML = '';
@@ -1049,7 +1134,7 @@
             });
 
             currentCardIndex = 0;
-            if(activeWordsList.length > 0) {
+            if (activeWordsList.length > 0) {
                 updateCard();
             } else {
                 document.getElementById('card-word').textContent = "Bulunamadı";
@@ -1075,8 +1160,8 @@
         }
 
         function nextCard() {
-            if(activeWordsList.length === 0) return;
-            
+            if (activeWordsList.length === 0) return;
+
             if (isHomeworkMode && currentCardIndex === activeWordsList.length - 1) {
                 proceedHomeworkFlow();
                 return;
@@ -1087,14 +1172,14 @@
         }
 
         function prevCard() {
-            if(activeWordsList.length === 0) return;
+            if (activeWordsList.length === 0) return;
             currentCardIndex = (currentCardIndex - 1 + activeWordsList.length) % activeWordsList.length;
             updateCard();
         }
 
         function speakCurrentWord(event) {
             event.stopPropagation();
-            if(activeWordsList.length === 0) return;
+            if (activeWordsList.length === 0) return;
             const text = activeWordsList[currentCardIndex].word;
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'en-US';
@@ -1156,7 +1241,7 @@
             document.getElementById('builder-meaning').textContent = `Türkçesi: "${s.turkish}"`;
             document.getElementById('builder-feedback').textContent = '';
             document.getElementById('answer-box').style.display = 'none';
-            
+
             const pool = document.getElementById('word-pool');
             const zone = document.getElementById('sentence-zone');
             pool.innerHTML = '';
@@ -1198,9 +1283,9 @@
 
         function checkSentence() {
             const zoneWords = Array.from(document.getElementById('sentence-zone').children)
-                                   .map(el => el.textContent);
-            const correctSentence = isHomeworkMode ? 
-                activeSentenceList[currentSentenceSubIndex].english : 
+                .map(el => el.textContent);
+            const correctSentence = isHomeworkMode ?
+                activeSentenceList[currentSentenceSubIndex].english :
                 sentences[currentSentenceIndex].english;
 
             const feedback = document.getElementById('builder-feedback');
@@ -1247,15 +1332,15 @@
         function switchTab(tabId) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            
-            document.getElementById(tabId).classList.add('active');
-            
-            const activeBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.getAttribute('onclick').includes(tabId));
-            if(activeBtn) activeBtn.classList.add('active');
 
-            if(tabId === 'quiz') loadQuiz();
-            if(tabId === 'builder' && !isHomeworkMode) loadSentenceBuilder();
-            if(tabId === 'homework') renderHomeworkGrid();
+            document.getElementById(tabId).classList.add('active');
+
+            const activeBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.getAttribute('onclick').includes(tabId));
+            if (activeBtn) activeBtn.classList.add('active');
+
+            if (tabId === 'quiz') loadQuiz();
+            if (tabId === 'builder' && !isHomeworkMode) loadSentenceBuilder();
+            if (tabId === 'homework') renderHomeworkGrid();
         }
 
         // --- YAPAY ZEKA (AI) ENTEGRASYON MANTIĞI ---
@@ -1413,32 +1498,41 @@
                 }
 
                 const endpoint =
-  'wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContentConstrained?access_token=' +
-  encodeURIComponent(tokenData.token);
+                    'wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContentConstrained?access_token=' +
+                    encodeURIComponent(tokenData.token);
                 liveSocket = new WebSocket(endpoint);
 
-              liveSocket.onopen = () => {
-  liveSocket.send(JSON.stringify({
-    setup: {
-      model: LIVE_MODEL,
+                liveSocket.onopen = () => {
+                    liveSocket.send(JSON.stringify({
+                        setup: {
+                            model: LIVE_MODEL,
 
-      generationConfig: {
-        responseModalities: ['AUDIO']
-      },
+                            generationConfig: {
+                                responseModalities: ['AUDIO']
+                            },
 
-      systemInstruction: {
-        parts: [{
-          text: 'Sen Software & English Hub sitesinin sıcak, sabırlı ve teşvik edici İngilizce ve yazılım öğretmenisin. Kullanıcıyla doğal Türkçe konuş; İngilizce öğrenme pratiği isterse basit İngilizce kullan ve gerektiğinde Türkçe açıkla. Kısa, anlaşılır yanıtlar ver. Kullanıcı konuşmasını bitirince yanıt ver.'
-        }]
-      },
+                            systemInstruction: {
+                                parts: [{
+                                    text: 'Sen Software & English Hub sitesinin sıcak, sabırlı ve teşvik edici İngilizce ve yazılım öğretmenisin. Kullanıcıyla doğal Türkçe konuş; İngilizce öğrenme pratiği isterse basit İngilizce kullan ve gerektiğinde Türkçe açıkla. Kısa, anlaşılır yanıtlar ver. Kullanıcı konuşmasını bitirince yanıt ver.'
+                                }]
+                            },
 
-      inputAudioTranscription: {},
-      outputAudioTranscription: {}
-    }
-  }));
+                            inputAudioTranscription: {},
+                            outputAudioTranscription: {}
+                        }
+                    }));
+                    console.log("Gemini mesajı:", message);
 
-  setVoiceStatus('Gemini bağlantısı kuruluyor...');
-};
+if (message.setupComplete) {
+  console.log("SETUP TAMAMLANDI");
+}
+
+if (message.error) {
+  console.error("GEMINI API HATASI:", message.error);
+}
+
+                    setVoiceStatus('Gemini bağlantısı kuruluyor...');
+                };
 
                 liveSocket.onmessage = async (event) => {
                     let message;
@@ -1496,18 +1590,18 @@
 
                 liveSocket.onerror = () => setVoiceStatus('Ses bağlantısında hata oluştu. API anahtarını ve Vercel dağıtımını kontrol et.');
                 liveSocket.onclose = (event) => {
-    console.error("WebSocket kapandı:", {
-        code: event.code,
-        reason: event.reason,
-        wasClean: event.wasClean
-    });
+                    console.error("WebSocket kapandı:", {
+                        code: event.code,
+                        reason: event.reason,
+                        wasClean: event.wasClean
+                    });
 
-    setVoiceStatus(
-        `Bağlantı kapandı. Kod: ${event.code}. Sebep: ${event.reason || "Belirtilmedi"}`
-    );
+                    setVoiceStatus(
+                        `Bağlantı kapandı. Kod: ${event.code}. Sebep: ${event.reason || "Belirtilmedi"}`
+                    );
 
-    stopVoiceChat(false);
-};
+                    stopVoiceChat(false);
+                };
             } catch (error) {
                 console.error('Gemini Live error:', error);
                 setVoiceStatus(error.message || 'Sesli sohbet başlatılamadı.');
@@ -1524,9 +1618,9 @@
                 const socket = liveSocket;
                 liveSocket = null;
                 socket.onclose = null;
-                try { socket.close(); } catch (_) {}
+                try { socket.close(); } catch (_) { }
             }
-            if (liveAudioContext) { liveAudioContext.close().catch(() => {}); liveAudioContext = null; }
+            if (liveAudioContext) { liveAudioContext.close().catch(() => { }); liveAudioContext = null; }
             playbackNextTime = 0;
             document.getElementById('voice-start').disabled = false;
             document.getElementById('voice-stop').disabled = true;
@@ -1543,7 +1637,7 @@
 
             switchTab('ai-hub');
             appendChatMessage(`"${card.word}" kelimesi hakkında detaylı bilgi verebilir misin?`, 'user');
-            
+
             const loadingBubble = document.createElement('div');
             loadingBubble.className = 'chat-bubble ai';
             loadingBubble.textContent = 'Yazılım ve dil uzmanı düşünüyor...';
@@ -1576,4 +1670,5 @@
         updateCard();
     </script>
 </body>
+
 </html>
