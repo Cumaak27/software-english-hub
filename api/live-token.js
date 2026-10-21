@@ -2,14 +2,17 @@
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
-    return res.status(405).json({ error: "Method not allowed" });
+
+    return res.status(405).json({
+      error: "Method not allowed"
+    });
   }
 
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
     return res.status(500).json({
-      error: "GEMINI_API_KEY ayarlanmamış."
+      error: "GEMINI_API_KEY Vercel ortam değişkenlerinde bulunamadı."
     });
   }
 
@@ -20,18 +23,7 @@ export default async function handler(req, res) {
     ).toISOString(),
     newSessionExpireTime: new Date(
       Date.now() + 60 * 1000
-    ).toISOString(),
-    liveConnectConstraints: {
-      model: "models/gemini-3.1-flash-live-preview",
-      config: {
-        responseModalities: ["AUDIO"],
-        systemInstruction: {
-          parts: [{
-            text: "You are a friendly English and software teacher. Explain in Turkish when helpful and help the user practice English."
-          }]
-        }
-      }
-    }
+    ).toISOString()
   };
 
   try {
@@ -51,12 +43,17 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       console.error("Gemini API error:", data);
+
       return res.status(response.status).json({
-        error: data.error?.message || "Jeton oluşturulamadı."
+        error:
+          data.error?.message ||
+          "Gemini geçici jetonu oluşturamadı."
       });
     }
 
     if (!data.name) {
+      console.error("Unexpected Gemini response:", data);
+
       return res.status(502).json({
         error: "Gemini yanıtında jeton bulunamadı."
       });
@@ -67,8 +64,9 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error("Token request failed:", error);
+
     return res.status(500).json({
-      error: "Gemini API bağlantısı başarısız."
+      error: "Gemini API bağlantısı başarısız oldu."
     });
   }
 }
