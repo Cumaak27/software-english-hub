@@ -712,7 +712,7 @@
     </main>
 
     <script>
-        // Yazılım Mühendisliği & Genel Kelimeler (300 Kelime)
+        // Yazılım Mühendisliği & Genel Kelimeler (Tam 300 Kelime)
         const softwareWords = [
             { word: "Algorithm", phonetic: "/ˈæl.ɡə.rɪ.ðəm/", meaning: "Algoritma", example: "We optimized the sorting algorithm.", level: "CS" },
             { word: "Variable", phonetic: "/ˈveə.ri.ə.bəl/", meaning: "Değişken", example: "Declare a global variable first.", level: "CS" },
@@ -777,7 +777,19 @@
             "SaaS", "API", "SDK", "IDE", "Terminal", "CLI", "Script", "Syntax", "Semantics", "Grammar",
             "Pattern", "Design", "Singleton", "Factory", "Observer", "State", "Strategy", "Proxy", "Adapter", "Bridge",
             "Testing", "Mocking", "Unit", "Integration", "System", "Benchmark", "Latency", "Throughput", "Bandwidth", "Cache",
-            "Storage", "Disk", "CPU", "GPU", "RAM", "Hardware", "Software", "Firmware", "OS", "Kernel"
+            "Storage", "Disk", "CPU", "GPU", "RAM", "Hardware", "Software", "Firmware", "OS", "Kernel",
+            "Abstraction", "Polymorphism", "Inheritance", "Encapsulation", "Concurrency", "Parallelism", "Deadlock", "Livelock", "Mutex", "Semaphore",
+            "Symmetry", "Asymmetry", "Serialization", "Deserialization", "Refactoring", "Linting", "Transpiler", "Interpreter", "Bytecode", "Assembly",
+            "Bitwise", "Operand", "Operator", "Statement", "Expression", "Literal", "Constant", "Scope", "Namespace", "Module",
+            "Package", "Registry", "Repository", "Branching", "Merging", "Rebasing", "Stashing", "Cherry-pick", "Hook", "Webhook",
+            "Rest", "Soap", "GraphQL", "Grpc", "Websocket", "Polling", "Caching", "Cdn", "Proxy", "Reverse-proxy",
+            "Load-balancer", "Autoscaling", "Sharding", "Replication", "Partitioning", "Transaction", "Acid", "Base", "Index", "View",
+            "Trigger", "Procedure", "Schema", "Migration", "Seed", "Orm", "Query", "Jointure", "Foreign-key", "Primary-key",
+            "Constraint", "Validation", "Sanitization", "Escape", "Injection", "Xss", "Csrf", "Cors", "Jwt", "Oauth", "Saml",
+            "Encryption", "Hashing", "Salting", "Cipher", "Ssl", "Tls", "Certificate", "Firewall", "Vpn", "Proxy", "Bastion",
+            "Containerization", "Orchestration", "Microservice", "Monolith", "Serverless", "Function-as-a-service", "Iaac", "Devops", "Ci-cd", "Monitoring",
+            "Logging", "Tracing", "Telemetry", "Alerting", "Dashboard", "Metric", "Uptime", "Sla", "Slo", "Sli", "Fault-tolerance",
+            "Scalability", "High-availability", "Redundancy", "Failover", "Disaster-recovery", "Backup", "Restore", "Snapshot", "Audit", "Compliance"
         ];
 
         extraTerms.forEach((t) => {
@@ -951,8 +963,8 @@
         ];
 
         // --- AKIŞLI ÖDEV SİSTEMİ MANTIĞI ---
-        let selectedDay = parseInt(localStorage.getItem('RAFIK_current_day')) || 1;
-        let completedDays = JSON.parse(localStorage.getItem('RAFIKK_completed_days')) || [];
+        let selectedDay = parseInt(localStorage.getItem('HUB_current_day')) || 1;
+        let completedDays = JSON.parse(localStorage.getItem('HUB_completed_days')) || [];
 
         let isHomeworkMode = false;
         let homeworkStep = 1;
@@ -985,7 +997,7 @@
 
         function selectDay(dayNum) {
             selectedDay = dayNum;
-            localStorage.setItem('RAFIKK_current_day', dayNum);
+            localStorage.setItem('HUB_current_day', dayNum);
             renderHomeworkGrid();
         }
 
@@ -1112,7 +1124,7 @@
 
             if (!completedDays.includes(selectedDay)) {
                 completedDays.push(selectedDay);
-                localStorage.setItem('RAFIK_completed_days', JSON.stringify(completedDays));
+                localStorage.setItem('HUB_completed_days', JSON.stringify(completedDays));
             }
 
             alert(`🎉 Tebrikler! ${selectedDay}. Günün tüm kelime ve cümle aşamalarını başarıyla tamamladın!`);
@@ -1391,7 +1403,7 @@
             loadingBubble.textContent = 'Düşünüyorum...';
             document.getElementById('chat-messages').appendChild(loadingBubble);
 
-            const reply = await fetchAIResponse(userMsg);
+            const reply = await fetchAIResponse(userMsg, "Sen Software & English Hub sitesinin öğretmenisiniz.");
             loadingBubble.textContent = reply;
         }
 
@@ -1528,7 +1540,11 @@
                 liveSocket.onmessage = async (event) => {
                     let message;
                     try { message = JSON.parse(event.data); } catch (_) { return; }
+                    
+                    console.log("Gemini mesajı:", message);
+
                     if (message.setupComplete) {
+                        console.log("SETUP TAMAMLANDI");
                         liveIsReady = true;
                         startButton.disabled = true;
                         stopButton.disabled = false;
@@ -1548,7 +1564,6 @@
                             }));
                         };
                         liveMicSource.connect(liveProcessor);
-                        // Processor requires a destination connection in some browsers; the silent gain avoids microphone feedback.
                         const silentGain = liveAudioContext.createGain();
                         silentGain.gain.value = 0;
                         liveProcessor.connect(silentGain);
@@ -1576,17 +1591,11 @@
                             setVoiceStatus('Sözünü kestin; dinliyorum...');
                         }
                     }
-                    if (message.error) throw new Error(message.error.message || 'Gemini Live bağlantı hatası.');
+                    if (message.error) {
+                        console.error("GEMINI API HATASI:", message.error);
+                        throw new Error(message.error.message || 'Gemini Live bağlantı hatası.');
+                    }
                 };
-                console.log("Gemini mesajı:", message);
-
-if (message.setupComplete) {
-  console.log("SETUP TAMAMLANDI");
-}
-
-if (message.error) {
-  console.error("GEMINI API HATASI:", message.error);
-}
 
                 liveSocket.onerror = () => setVoiceStatus('Ses bağlantısında hata oluştu. API anahtarını ve Vercel dağıtımını kontrol et.');
                 liveSocket.onclose = (event) => {
@@ -1633,7 +1642,7 @@ if (message.error) {
             if (activeWordsList.length === 0) return;
 
             const card = activeWordsList[currentCardIndex];
-            const prompt = `"${card.word}" kelimesinin/terimininyazılım dilindeki kullanımını, eş anlamlılarını ve 2 farklı İngilizce örnek cümlesini Türkçe olarak kısa ve net açıkla.`;
+            const prompt = `"${card.word}" kelimesinin/teriminin yazılım dilindeki kullanımını, eş anlamlılarını ve 2 farklı İngilizce örnek cümlesini Türkçe olarak kısa ve net açıkla.`;
 
             switchTab('ai-hub');
             appendChatMessage(`"${card.word}" kelimesi hakkında detaylı bilgi verebilir misin?`, 'user');
